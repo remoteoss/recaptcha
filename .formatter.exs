@@ -1,4 +1,4 @@
 [
-  inputs: ["*.{ex,exs}", "{config,lib,test}/**/*.{ex,exs}"],
-  line_length: 79
+  inputs: ["mix.exs", "{config,lib,test}/**/*.{ex,exs}", "priv/repos/**/seeds.exs"],
+  line_length: 120
 ]
