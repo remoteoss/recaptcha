@@ -12,16 +12,6 @@ A simple Elixir package for implementing [reCAPTCHA] in Elixir applications.
 
 [reCAPTCHA]: http://www.google.com/recaptcha
 
-## Migration from 1.x
-
-### Breaking Changes
-
-1. Template functionality is now in a separate module: `Recaptcha.Template`. Please note: in future templating may move to a Phoenix specific package.
-2. `verify` API has changed, see the code for documentation of the new API.
-
-Most other questions about 2.x should be answered by looking over the documentation and the code. Please raise an issue
-if you have any problems with migrating.
-
 ## Installation
 
 Add `:recaptcha` to your `mix.exs` dependencies:
@@ -66,61 +56,6 @@ config :recaptcha, :json_library, Poison
 
 ## Usage
 
-### Render the Widget
-
-Use `raw` (if you're using Phoenix.HTML) and `Recaptcha.Template.display/1` methods to render the captcha widget.
-
-For recaptcha with checkbox:
-
-```html
-<form name="someform" method="post" action="/somewhere">
-  ...
-  <%= raw Recaptcha.Template.display %>
-  ...
-</form>
-```
-
-For invisible recaptcha:
-
-```html
-<form name="someform" method="post" action="/somewhere">
-  ...
-  <%= raw Recaptcha.Template.display(size: "invisible") %>
-</form>
-  ...
-```
-
-To change the position of the invisible recaptcha, use an option badge. See https://developers.google.com/recaptcha/docs/invisible on the date-badge.
-
-Since recaptcha loads JavaScript code asynchronously, you cannot immediately submit the captcha form.
-If you have logic that needs to know if the captcha code has already been loaded (for example disabling submit button until fully loaded), it is possible to pass in a JS-callback that will be called once the captcha has finished loading.
-This can be done as follows:
-
-```html
-<form name="someform" method="post" action="/somewhere">
-  ...
-  <%= raw Recaptcha.Template.display(onload: "myOnLoadCallback") %>
-</form>
-  ...
-```
-
-And then in your JS code:
-
-```javascript
-function myOnLoadCallback() {
-  // perform extra actions here
-}
-```
-
-`display` method accepts additional options as a keyword list, the options are:
-
-Option                  | Action                                                 | Default
-:---------------------- | :----------------------------------------------------- | :------------------------
-`noscript`              | Renders default noscript code provided by google       | `false`
-`public_key`            | Sets key to the `data-sitekey` reCaptcha div attribute | Public key from the config file
-`hl`                    | Sets the language of the reCaptcha                     | en
-
-### Verify API
 
 Recaptcha provides the `verify/2` method. Below is an example using a Phoenix controller action:
 
