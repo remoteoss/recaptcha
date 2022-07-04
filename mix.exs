@@ -2,7 +2,7 @@ defmodule Recaptcha.Mixfile do
   use Mix.Project
 
   @source_url "https://github.com/samueljseay/recaptcha"
-  @version "3.1.0"
+  @version "4.0.0"
 
   def project do
     [
