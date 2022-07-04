@@ -1,26 +1,27 @@
 # Recaptcha
 
-[![Build Status](https://travis-ci.org/samueljseay/recaptcha.svg?branch=master)](https://travis-ci.org/samueljseay/recaptcha)
-[![Coverage Status](https://coveralls.io/repos/github/samueljseay/recaptcha/badge.svg?branch=master)](https://coveralls.io/github/samueljseay/recaptcha)
-[![Module Version](https://img.shields.io/hexpm/v/recaptcha.svg)](https://hex.pm/packages/recaptcha)
-[![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/recaptcha/)
-[![Total Download](https://img.shields.io/hexpm/dt/recaptcha.svg)](https://hex.pm/packages/recaptcha)
-[![License](https://img.shields.io/hexpm/l/recaptcha.svg)](https://github.com/samueljseay/recaptcha/blob/master/LICENSE)
-[![Last Updated](https://img.shields.io/github/last-commit/samueljseay/recaptcha.svg)](https://github.com/samueljseay/recaptcha/commits/master)
 
-A simple Elixir package for implementing [reCAPTCHA] in Elixir applications.
+[![Last Updated](https://img.shields.io/github/last-commit/remoteoss/recaptcha.svg)](https://img.shields.io/github/last-commit/remoteoss/recaptcha.svg)
+
+A simple Elixir package for implementing [reCAPTCHA] in Elixir applications. Forked from [samueljseay/recaptcha](https://github.com/samueljseay/recaptcha) and [bounceapp/recaptcha](https://github.com/Bounceapp/recaptcha).
 
 [reCAPTCHA]: http://www.google.com/recaptcha
 
 ## Migration from 1.x to 2.x
 
- ### Breaking Changes
+### Breaking Changes
 
- 1. Template functionality is now in a separate module: `Recaptcha.Template`. Please note: in future templating may move to a Phoenix specific package.
- 2. `verify` API has changed, see the code for documentation of the new API.
+1. Template functionality is now in a separate module: `Recaptcha.Template`. Please note: in future templating may move to a Phoenix specific package.
+2. `verify` API has changed, see the code for documentation of the new API.
 
- Most other questions about 2.x should be answered by looking over the documentation and the code. Please raise an issue
- if you have any problems with migrating.
+Most other questions about 2.x should be answered by looking over the documentation and the code. Please raise an issue
+if you have any problems with migrating.
+
+## Migration from 3.x to 4.x
+
+- Now requires Elixir version 1.13 or later
+- The reCATPCHA widget has been removed. If you need this widget we suggest you inline it in your
+  project from the previous version of this library.
 
 ## Installation
 
@@ -29,7 +30,7 @@ Add `:recaptcha` to your `mix.exs` dependencies:
 ```elixir
   defp deps do
     [
-      {:recaptcha, "~> 3.0"},
+      {:recaptcha, github: "remoteoss/recaptcha"},
     ]
   end
 ```
