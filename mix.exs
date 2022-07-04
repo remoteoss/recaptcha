@@ -34,7 +34,7 @@ defmodule Recaptcha.Mixfile do
   end
 
   def application do
-    [applications: [:logger, :httpoison, :eex]]
+    [applications: [:logger, :httpoison, :eex, :bypass]]
   end
 
   defp description do
@@ -50,8 +50,9 @@ defmodule Recaptcha.Mixfile do
       {:jason, "~> 1.2", optional: true},
       {:credo, "~> 1.0", only: [:dev, :test], runtime: false},
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
-      {:dialyxir, "~> 0.5", only: [:dev]},
-      {:excoveralls, "~> 0.7.1", only: :test}
+      {:dialyxir, "~> 0.5", only: :dev},
+      {:excoveralls, "~> 0.7.1", only: :test},
+      {:bypass, "~> 2.1", only: :test}
     ]
   end
 
