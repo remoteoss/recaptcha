@@ -12,6 +12,16 @@ A simple Elixir package for implementing [reCAPTCHA] in Elixir applications.
 
 [reCAPTCHA]: http://www.google.com/recaptcha
 
+## Migration from 1.x to 2.x
+
+ ### Breaking Changes
+
+ 1. Template functionality is now in a separate module: `Recaptcha.Template`. Please note: in future templating may move to a Phoenix specific package.
+ 2. `verify` API has changed, see the code for documentation of the new API.
+
+ Most other questions about 2.x should be answered by looking over the documentation and the code. Please raise an issue
+ if you have any problems with migrating.
+
 ## Installation
 
 Add `:recaptcha` to your `mix.exs` dependencies:
