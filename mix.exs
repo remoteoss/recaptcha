@@ -34,7 +34,7 @@ defmodule Recaptcha.Mixfile do
   end
 
   def application do
-    [applications: [:logger, :httpoison, :eex, :bypass]]
+    [applications: [:logger, :httpoison, :eex]]
   end
 
   defp description do
