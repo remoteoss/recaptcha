@@ -1,18 +1,13 @@
 # Recaptcha
 
-[![Build Status](https://travis-ci.org/samueljseay/recaptcha.svg?branch=master)](https://travis-ci.org/samueljseay/recaptcha)
-[![Coverage Status](https://coveralls.io/repos/github/samueljseay/recaptcha/badge.svg?branch=master)](https://coveralls.io/github/samueljseay/recaptcha)
-[![Module Version](https://img.shields.io/hexpm/v/recaptcha.svg)](https://hex.pm/packages/recaptcha)
-[![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/recaptcha/)
-[![Total Download](https://img.shields.io/hexpm/dt/recaptcha.svg)](https://hex.pm/packages/recaptcha)
-[![License](https://img.shields.io/hexpm/l/recaptcha.svg)](https://github.com/samueljseay/recaptcha/blob/master/LICENSE)
-[![Last Updated](https://img.shields.io/github/last-commit/samueljseay/recaptcha.svg)](https://github.com/samueljseay/recaptcha/commits/master)
 
-A simple Elixir package for implementing [reCAPTCHA] in Elixir applications.
+[![Last Updated](https://img.shields.io/github/last-commit/remoteoss/recaptcha.svg)](https://img.shields.io/github/last-commit/remoteoss/recaptcha.svg)
+
+A simple Elixir package for implementing [reCAPTCHA] in Elixir applications. Forked from [samueljseay/recaptcha](https://github.com/samueljseay/recaptcha) and [bounceapp/recaptcha](https://github.com/Bounceapp/recaptcha).
 
 [reCAPTCHA]: http://www.google.com/recaptcha
 
-## Migration from 1.x
+## Migration from 1.x to 2.x
 
 ### Breaking Changes
 
@@ -22,6 +17,12 @@ A simple Elixir package for implementing [reCAPTCHA] in Elixir applications.
 Most other questions about 2.x should be answered by looking over the documentation and the code. Please raise an issue
 if you have any problems with migrating.
 
+## Migration from 3.x to 4.x
+
+- Now requires Elixir version 1.13 or later
+- The reCATPCHA widget has been removed. If you need this widget we suggest you inline it in your
+  project from the previous version of this library.
+
 ## Installation
 
 Add `:recaptcha` to your `mix.exs` dependencies:
@@ -29,7 +30,7 @@ Add `:recaptcha` to your `mix.exs` dependencies:
 ```elixir
   defp deps do
     [
-      {:recaptcha, "~> 3.0"},
+      {:recaptcha, github: "remoteoss/recaptcha"},
     ]
   end
 ```
@@ -66,61 +67,6 @@ config :recaptcha, :json_library, Poison
 
 ## Usage
 
-### Render the Widget
-
-Use `raw` (if you're using Phoenix.HTML) and `Recaptcha.Template.display/1` methods to render the captcha widget.
-
-For recaptcha with checkbox:
-
-```html
-<form name="someform" method="post" action="/somewhere">
-  ...
-  <%= raw Recaptcha.Template.display %>
-  ...
-</form>
-```
-
-For invisible recaptcha:
-
-```html
-<form name="someform" method="post" action="/somewhere">
-  ...
-  <%= raw Recaptcha.Template.display(size: "invisible") %>
-</form>
-  ...
-```
-
-To change the position of the invisible recaptcha, use an option badge. See https://developers.google.com/recaptcha/docs/invisible on the date-badge.
-
-Since recaptcha loads JavaScript code asynchronously, you cannot immediately submit the captcha form.
-If you have logic that needs to know if the captcha code has already been loaded (for example disabling submit button until fully loaded), it is possible to pass in a JS-callback that will be called once the captcha has finished loading.
-This can be done as follows:
-
-```html
-<form name="someform" method="post" action="/somewhere">
-  ...
-  <%= raw Recaptcha.Template.display(onload: "myOnLoadCallback") %>
-</form>
-  ...
-```
-
-And then in your JS code:
-
-```javascript
-function myOnLoadCallback() {
-  // perform extra actions here
-}
-```
-
-`display` method accepts additional options as a keyword list, the options are:
-
-Option                  | Action                                                 | Default
-:---------------------- | :----------------------------------------------------- | :------------------------
-`noscript`              | Renders default noscript code provided by google       | `false`
-`public_key`            | Sets key to the `data-sitekey` reCaptcha div attribute | Public key from the config file
-`hl`                    | Sets the language of the reCaptcha                     | en
-
-### Verify API
 
 Recaptcha provides the `verify/2` method. Below is an example using a Phoenix controller action:
 

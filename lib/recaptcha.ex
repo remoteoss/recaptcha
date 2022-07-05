@@ -19,19 +19,20 @@ defmodule Recaptcha do
     * `:secret`  - the secret key used by recaptcha (defaults to the secret
       provided in application config)
     * `:remote_ip` - the IP address of the user (optional and not set by default)
+    * `:url` - the URL of the server that will process the reCATPCHA request (optional). Default's
+      to Google's own reCATPCHA server - https://www.google.com/recaptcha/api/siteverify.
 
   ## Examples
 
       {:ok, api_response} = Recaptcha.verify("response_string")
 
   """
-  @spec verify(String.t(), Keyword.t()) ::
-            {:ok, Response.t()} | {:error, [atom]}
+  @spec verify(String.t(), Keyword.t()) :: {:ok, Response.t()} | {:error, [atom]}
   def verify(response, options \\ []) do
     verification =
       @http_client.request_verification(
         request_body(response, options),
-      options
+        options
       )
 
     case verification do
@@ -57,12 +58,10 @@ defmodule Recaptcha do
            score: score
          }}
 
-      {:ok,
-       %{"success" => true, "challenge_ts" => timestamp, "hostname" => host}} ->
+      {:ok, %{"success" => true, "challenge_ts" => timestamp, "hostname" => host}} ->
         {:ok, %Response{challenge_ts: timestamp, hostname: host}}
 
-      {:ok,
-       %{"success" => false, "challenge_ts" => _timestamp, "hostname" => _host}} ->
+      {:ok, %{"success" => false, "challenge_ts" => _timestamp, "hostname" => _host}} ->
         {:error, [:challenge_failed]}
     end
   end

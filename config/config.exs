@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :recaptcha,
   verify_url: "https://www.google.com/recaptcha/api/siteverify",
