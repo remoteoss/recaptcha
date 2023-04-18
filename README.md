@@ -96,26 +96,37 @@ Option                  | Action                                                
 
 ## Testing
 
-In order to test your endpoints you should set the secret key to the following value in order to receive a positive result from all queries to the Recaptcha engine.
+The recommended way to mock responses from `recaptcha` is to create a module implementing a `request_verification/2`
+function, and pass it to recaptcha's `:http_client` config, for example:
 
 ```elixir
-config :recaptcha,
-  secret: "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"
+defmodule RecaptchaMock do
+	def request_verification(query_string, _opts) do
+		# You can pattern-match against the secret and recaptcha response provided to `Recaptcha.verify/1` in the `query_string` in 
+		# case you want different responses in your tests.
+    response =
+      cond do
+        String.contains?(query_string, "response=zero_score") ->
+          %{"success" => true, "score" => 0.0, "challenge_ts" => "timestamp", "hostname" => "localhost"}
+
+        true ->
+          %{"success" => true, "score" => 1.0, "challenge_ts" => "timestamp", "hostname" => "localhost"}
+      end
+
+		{:ok, response}
+	end
+end
 ```
 
-Setting up tests without network access can be done also. When configured as such a positive or negative result can be generated locally.
+And then, on your config:
 
 ```elixir
-config :recaptcha,
-  http_client: Recaptcha.Http.MockClient,
-  secret: "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"
-
-
-  {:ok, _details} = Recaptcha.verify("valid_response")
-
-  {:error, _details} = Recaptcha.verify("invalid_response")
-
+config :recaptcha, http_client: RecaptchaMock
 ```
+
+This allows you to run tests without network, but you can still run automated tests against Recaptcha's servers by
+following [Google's
+guide](https://developers.google.com/recaptcha/docs/faq#id-like-to-run-automated-tests-with-recaptcha.-what-should-i-do).
 
 ## Contributing
 
