@@ -96,7 +96,7 @@ Option                  | Action                                                
 
 ## Testing
 
-The recommended way to mock repsonses from `recaptcha` is to create a module implementing a `request_verification/2`
+The recommended way to mock responses from `recaptcha` is to create a module implementing a `request_verification/2`
 function, and pass it to recaptcha's `:http_client` config, for example:
 
 ```elixir
